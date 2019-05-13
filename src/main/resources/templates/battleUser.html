@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<main class="container-fluid" layout:fragment="content">
+    <!--/*@thymesVar id="currentUser" type="enu.infa.spring.model.BattleUser"*/-->
+    <!--/*@thymesVar id="battleUser" type="enu.infa.spring.model.BattleUser"*/-->
+
+
+    <div class="container">
+
+        <table id="tablePreview" class="table table-striped">
+            <!--Table head-->
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Neck Level</th>
+                <th>Item level</th>
+            </tr>
+            </thead>
+            <!--Table head-->
+            <!--Table body-->
+            <tbody>
+            <tr th:each="char : ${battleUser.getCharactersSorted()}">
+                <td>
+                    <img th:src="${char.getPictureUrl()}" alt="..." class="img-fluid" th:width="40" th:height="40">
+                    <a th:style="'color: '+${char.getWowClass().getColor()}+';'" th:text="${char.getName()}"></a>
+                </td>
+                <td th:text="${char.getLevel()}"></td>
+                <td th:text="${char.getNeckLevel()}"></td>
+                <td th:text="${char.getItemLevel()}"></td>
+            </tr>
+
+
+            </tbody>
+            <!--Table body-->
+        </table>
+
+
+        <table id="tablePreview2" class="table table-striped">
+            <thead>
+            <tr>
+                <th>average neck level</th>
+                <th>average item level</th>
+            </tr>
+            </thead>
+            <tbody>
+            <td th:text="${battleUser.getAverageNeckLevel()}"></td>
+            <td th:text="${battleUser.getAverageItemLevel()}"></td>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+</html>

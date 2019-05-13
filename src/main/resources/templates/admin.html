@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+
+      layout:decorate="~{fragments/layout}">
+
+
+<main class="container-fluid" layout:fragment="content">
+    <div class="container">
+
+
+        <form action="" method="post" th:action="@{/admin/realms}">
+            <button type="submit" class="btn btn-secondary btn-lg active" name="realms" role="button" aria-pressed="true">Realms</button>
+        </form>
+        <form action="" method="post" th:action="@{/admin/races}">
+            <button type="submit" class="btn btn-secondary btn-lg active" name="realms" role="button" aria-pressed="true">races</button>
+        </form>
+        <form action="" method="post" th:action="@{/admin/classes}">
+            <button type="submit" class="btn btn-secondary btn-lg active" name="realms" role="button" aria-pressed="true">classes</button>
+        </form>
+        <form action="" method="post" th:action="@{/admin/guild}">
+            <button type="submit" class="btn btn-secondary btn-lg active" name="realms" role="button" aria-pressed="true">guild</button>
+        </form>
+
+        <form action="" method="post" th:action="@{/admin/mounts}">
+            <button type="submit" class="btn btn-secondary btn-lg active" name="realms" role="button" aria-pressed="true">mount</button>
+        </form>
+    </div>
+
+
+</main>
+</body>
+</html>

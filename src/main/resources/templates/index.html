@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorate="~{fragments/layout}">
+<main class="container-fluid" layout:fragment="content">
+    <!--/*@thymesVar id="currentUser" type="enu.infa.spring.model.BattleUser"*/-->
+    <!--/*@thymesVar id="wowChar" type="enu.infa.spring.model.WowChar"*/-->
+    <!--/*@thymesVar id="instances" type="java.util.List<enu.infa.spring.model.WowInstance>"*/-->
+
+    <!--/*@thymesVar id="users" type="java.util.List<enu.infa.spring.model.BattleUser>"*/-->
+
+    <div class="container">
+        <div sec:authorize="isAuthenticated()">
+            <P> Every 10 min this is getting updated!</P>
+            <a th:href="@{/edit}">Edit the user ! </a>
+            <a> its gonna crash atm tho</a>
+            <a></a>
+            <!--Table-->
+            <table id="tablePreview" class="table table-striped">
+                <!--Table head-->
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Level</th>
+                    <th>Neck Level</th>
+                    <th>Item level</th>
+                    <th>Mythic plus</th>
+                    <th>Current key</th>
+
+
+                </tr>
+                </thead>
+                <!--Table head-->
+                <!--Table body-->
+                <tbody>
+                <tr th:each="char : ${currentUser.getCharactersSorted()}">
+                    <td>
+                        <img th:src="${char.getPictureUrl()}" alt="..." class="img-fluid" th:width="40" th:height="40">
+                        <a th:style="'color: '+${char.getWowClass().getColor()}+';'" th:text="${char.getName()}"></a>
+                    </td>
+                    <td th:text="${char.getLevel()}"></td>
+                    <td th:text="${char.getNeckLevel()}"></td>
+                    <td th:text="${char.getItemLevel()}"></td>
+                    <td th:text="${char.getMythicPlus()}"></td>
+                    <td>
+                        <form action="#" th:action="@{/test}" th:object="${wowChar}" method="post">
+                            <select th:field="*{currentInstance}">
+                                <option th:each="instance : ${instances}" th:value="${instance.getShortName()}"
+                                        th:text="${instance.getFullName()}"></option>
+                            </select>
+                            <select th:field="*{currentKeyLevel}">
+                                <option th:value="1">1</option>
+
+
+                            </select>
+
+                            <input name="submit" type="submit" value="submit"/>
+                    </td>
+                </tr>
+                </tbody>
+                <!--Table body-->
+            </table>
+            <table id="tablePreview2" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>average neck level</th>
+                    <th>average item level</th>
+                </tr>
+                </thead>
+                <tbody>
+                <td th:text="${currentUser.getAverageNeckLevel()}"></td>
+                <td th:text="${currentUser.getAverageItemLevel()}"></td>
+                </tbody>
+            </table>
+            <!--Table-->
+        </div>
+    </div>
+
+    <div>battletags woho</div>
+
+    <tr th:each="user: ${users}">
+        <a th:text="${user.getBattleTag()}" th:href="@{/battleUser/{id} (id=${user.getId()})}">Update</a>
+    </tr>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        This content is only shown to administrators.
+    </div>
+    <div sec:authorize="hasRole('ROLE_USER')">
+        This content is only shown to users.
+    </div>
+
+
+    Logged user: <span sec:authentication="name"></span>
+</main>
+</html>

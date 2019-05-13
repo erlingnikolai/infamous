@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<th:block th:fragment="header">
+    <!--/*@thymesVar id="currentUser" type="enu.infa.spring.model.BattleUser"*/-->
+    <nav class="navbar navbar-expand-md" style="background-color:#313e4d" th:fragment="header">
+
+
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <img th:src="@{/images/battle.ico}" width="37" height="37" alt="..." class="img-rounded">
+            <div sec:authorize="isAnonymous()">
+                <a href="/login" class="btn btn-primary battlenet"> > Sign In</a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <a href="javascript: document.logoutForm.submit()" class="btn btn-primary battlenet" role="menuitem"> Logout</a>
+                <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                    <input hidden type="submit" value="Sign Out"/>
+                </form>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <p th:text="${'welcome ' + currentUser.getBattleTag()}" th:unless="${currentUser == null}">[...]</p>
+            </div>
+        </div>
+
+
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" style="color:#e5e5e5; font-weight: 500" href="#">Infamous</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                </form>
+            </ul>
+        </div>
+    </nav>
+</th:block>
+</html>
